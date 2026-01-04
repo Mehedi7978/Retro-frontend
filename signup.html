@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="./styles/signup.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h2>Create Account</h2>
+
+    <form>
+      <div class="input-box">
+        <input type="text" placeholder="Full Name" id="name" required />
+      </div>
+      <div class="input-box">
+        <input type="email" placeholder="Email Address"  id= "email" required />
+      </div>
+
+      <div class="input-box">
+        <input type="password" placeholder="Password" id="password" required />
+      </div>
+
+     
+
+      <button type="submit" id="btn">Sign Up</button>
+
+      <p class="login-text">
+        Already have an account?
+        <a href="login.html">Login</a>
+      </p>
+    </form>
+  </div>
+
+
+
+    
+
+<script>
+
+
+let user = localStorage.getItem("id")
+
+if(user){
+    window.location = "dashboard.html"
+    
+}
+
+
+async function signup(e) {
+
+
+
+    
+   
+  try {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    
+
+
+  let response = await fetch("https://retro-backend-u2vk.onrender.com/signup", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ name, email, password })
+});
+
+
+    let res = await response.json();
+    console.log(res.id);
+
+  //mock session
+
+
+  if(!res.ok){
+    alert(res.message);
+    return;
+  }
+
+if(res.id && res.email){
+
+    localStorage.setItem("id" , res.id)
+    localStorage.setItem("email" , res.email)
+
+    window.location = 'index.html'
+
+}
+
+  
+  } catch (error) {
+    console.error("Signup error:", error);
+    alert(error)
+  }
+
+
+}
+
+document.getElementById('btn').addEventListener('click', (e) => {
+  e.preventDefault();
+  signup();
+
+
+
+
+
+
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+/* Card Container Styling */
+.card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Typography Styling */
+.card-title {
+    color: #2c3e50;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.card-title b {
+    color: #3498db;
+    font-weight: 600;
+}
+
+.card-subtitle {
+    color: #546e7a;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.card-subtitle b {
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+.card-text {
+    color: #34495e;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.card-text b {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* File Size & Date Styling */
+.card p:has(+ span) { /* Targets the file size paragraph */
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card p:has(+ span)::before {
+    content: "📊";
+    font-size: 0.9rem;
+}
+
+.card span {
+    display: block;
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    padding: 0.25rem 0.75rem;
+    background-color: #f1f5f9;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card span::before {
+    content: "📅";
+    font-size: 0.8rem;
+}
+
+/* Button/Link Styling */
+.card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    border: 2px solid transparent;
+}
+
+.card-link:first-of-type {
+    background-color: #3498db;
+    color: white;
+}
+
+.card-link:first-of-type:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.card-link:last-of-type {
+    background-color: #fff;
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.card-link:last-of-type:hover {
+    background-color: #e74c3c;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .card-title {
+        font-size: 1.15rem;
+    }
+    
+    .card-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .card-text {
+        font-size: 0.95rem;
+        padding: 0.875rem;
+    }
+    
+    .card-link {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.9rem;
+        display: inline-flex;
+        width: calc(50% - 0.5rem);
+        justify-content: center;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .card-link:last-of-type {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        border-radius: 10px;
+        margin-bottom: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .card-link {
+        width: 39%;
+        margin-right: 0;
+        margin-bottom: 0.75rem;
+        justify-content: center;
+    }
+    
+    .card-text {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+    }
+    
+    .card-title,
+    .card-subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        border-color: #4a5568;
+    }
+    
+    .card-title {
+        color: #e2e8f0;
+    }
+    
+    .card-subtitle {
+        color: #cbd5e0;
+    }
+    
+    .card-text {
+        color: #a0aec0;
+        background-color: #2d3748;
+        border-left-color: #4299e1;
+    }
+    
+    .card span {
+        background-color: #2d3748;
+        color: #a0aec0;
+    }
+}
+
+/* Animation for new cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.3s ease-out forwards;
+}
+
+/* Status indicators (optional) */
+.card-text:empty::before {
+    content: "No message provided";
+    color: #95a5a6;
+    font-style: italic;
+}

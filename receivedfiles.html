@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="styles/home.css">
+   <link rel="stylesheet" href="styles/cards.css">
+    <title>recived files  </title>
+    <style>
+      
+
+      .card{
+        margin:20px 10px 10px;
+
+      }
+    </style>
+</head>
+<body>
+
+  
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand text-light" href="index.html" >Retro </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon bg-light"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active text-light" aria-current="page" href="sentfiles.html">sent Files</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="dashboard.html">send File </a>
+        </li>
+       
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+    
+
+
+<div id="receivedfiles"></div>
+
+
+<script>
+
+
+const user = localStorage.getItem("id")
+const userEmail = localStorage.getItem("email")
+
+if(!user){
+    window.location="login.html"
+}
+
+
+
+const receivedfiles  = document.getElementById("receivedfiles")
+
+
+async function fetchuser() {
+
+    try{
+
+
+
+        let response = await fetch(`https://retro-backend-u2vk.onrender.com/user/${user}`)
+        let res = await response.json()
+    //   profile.innerHTML = `<div id="p" > Your Info  <p> <b>Name :</b> ${res.name} </p> <p><b>Email :</b>  ${res.links}</p></div> `
+    let linksHTML = "";
+
+
+
+let recived = res.links.filter(link=> link.sender !==userEmail).reverse()
+    
+recived.forEach(l => {
+  receivedfiles.innerHTML += `
+    <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"> <b>Sender:</b> ${l.sender}</h5>
+      <h6 class="card-subtitle"><b>Reciever:</b> ${l.receiver}</h6>
+      <p class="card-text"> <b>Message : </b>
+        ${l.message}
+      </p>
+      <p>file Size: ${parseFloat(l.fileSize).toFixed(2)}  Mb</p>
+      <span>${new Date(l.date).toDateString()}</span>
+      <a href="${l.link}" class="card-link">Download ⬇️</a>
+      <a href="javascript:void(0)" class="card-link" onclick=deleteFile('${l._id}')>Delete File 🗑️</a>
+      
+    </div>
+  </div>
+  `;
+});
+
+
+
+
+     
+
+      let link = res.links
+
+      
+      
+    }catch(err){
+        console.log("Error" , err )
+    }
+    
+}
+
+
+if(user){
+    fetchuser()
+    console.log("fetched completed .....")
+}
+
+
+
+
+
+async function deleteFile(linkId) {
+  if (!confirm("Are you sure you want to delete this file?")) return;
+
+  try {
+    const res = await fetch(
+      `https://retro-backend-u2vk.onrender.com/delete-link/${user}/${linkId}`,
+      { method: "DELETE" }
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("File deleted successfully");
+      location.reload(); // simplest & safe
+    } else {
+      alert(data.message);
+    }
+
+  } catch (err) {
+    console.error("Delete error:", err);
+  }
+}
+
+
+</script>
+
+
+
+
+</body>
+</html>

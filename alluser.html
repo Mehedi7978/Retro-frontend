@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>all user 
+    </title>
+</head>
+<body onload="fetchuser()">
+    
+
+
+    <div id="root">
+
+    </div>
+
+
+
+    <script>
+   
+   let root = document.getElementById("root")
+
+
+
+async function  fetchuser() {
+
+    try{
+
+        let response = await fetch("http://localhost:3000/alluser")
+        let res =  await response.json()
+        console.log(res)
+
+              res.forEach(items => {
+                 root.innerHTML += ` <p> ${items.username}</p>  <p> ${items.email} </p> <br>`
+                
+              });
+
+    }catch(err){
+        console.log(err)
+    }
+    
+}
+
+
+    </script>
+</body>
+</html>
