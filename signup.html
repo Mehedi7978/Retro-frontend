@@ -105,6 +105,7 @@ if(res.id && res.email){
 document.getElementById('btn').addEventListener('click', (e) => {
   e.preventDefault();
   signup();
+  document.getElementById('btn').disabled = true;
 
 
 
@@ -117,5 +118,6 @@ document.getElementById('btn').addEventListener('click', (e) => {
 
 </body>
 </html>
+
 
 
